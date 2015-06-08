@@ -21,12 +21,12 @@ namespace KennyEmbrechts1eZit14
         public event PropertyChangedEventHandler PropertyChanged;
     }
     
-    public class Rootobject
+    public class Rootobject : BaseClass
     {
         public Personen[] Personen { get; set; }
     }
 
-    public class Personen
+    public class Personen : BaseClass
     {
         public string _id { get; set; }
         public int index { get; set; }
@@ -56,7 +56,7 @@ namespace KennyEmbrechts1eZit14
         public string favoriteFruit { get; set; }
     }
 
-    public class Friend
+    public class Friend :BaseClass
     {
     public int id { get; set; }
     public string name { get; set; }

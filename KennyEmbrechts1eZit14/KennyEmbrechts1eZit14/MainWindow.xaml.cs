@@ -37,33 +37,38 @@ namespace KennyEmbrechts1eZit14
 
         private void JongerDan30Zoeken(object sender, RoutedEventArgs e)
         {
-            Gezochtelijst = new ObservableCollection<Personen>();
+            decimal MensenOver30 = (from persoon in Personenlijst
+                                  where persoon.age < 30
+                                  select persoon).Count();
 
-            var Menskens = Personenlijst.Where(t => t.age<30);
 
-            foreach (var i1 in Menskens)
-            {
-                Gezochtelijst.Add(i1);
-            }
-            LijstPersonen.ItemsSource = Gezochtelijst;
+            MessageBox.Show(Convert.ToString("Er is "+MensenOver30+"persoon jonger dan 30"));
             
         }
 
         private void VrouwenLeeftijden(object sender, RoutedEventArgs e)
         {
-            var Menskens = Personenlijst.Where(t => t.age > 0).Sum(g => g.age);
-            MessageBox.Show(Convert.ToString(Menskens));
+            decimal Leeftijden = (from persoon in Personenlijst where persoon.gender=="female"
+                                    select persoon.age).Sum();
+            MessageBox.Show(Convert.ToString(Leeftijden));
         }
 
         private void SorteerOpNaamEnToon3(object sender, RoutedEventArgs e)
         {
+            Gezochtelijst = new ObservableCollection<Personen>();
+            var number = (from n in Personenlijst orderby n.name select n).Take(3);
 
+            foreach (var i1 in number)
+            {
+                Gezochtelijst.Add(i1);
+            }
+            LijstPersonen.ItemsSource = Gezochtelijst;
         }
 
         private void VerhoogLeeftijdMet1(object sender, RoutedEventArgs e)
         {
-            Personen temp = this.DataContext as Personen;
-            temp.age++;
+            Personen SelectedHuman = (Personen)LijstPersonen.SelectedItem;
+            SelectedHuman.age++;
         }
     }
 }
